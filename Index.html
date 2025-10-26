@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Princes' Coffee - Performance Dashboard</title>
+    <!-- STEP 1: Load the Google Charts library as soon as the page loads -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <style>:root{--dark-green:#546141;--light-gray:#E2DEDA;--white:#FFFFFF;}body{font-family:'Segoe UI',sans-serif;background-color:var(--light-gray);margin:0;padding:25px;}.hidden{display:none!important;}.login-wrapper{display:flex;justify-content:center;align-items:center;height:100vh;}.login-container{background:var(--white);padding:40px;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,0.1);text-align:center;width:350px;}img{max-width:200px;margin-bottom:20px;}h2{color:var(--dark-green);margin-bottom:25px;}input{width:100%;padding:12px;margin-bottom:15px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box;}button{width:100%;padding:12px;background-color:var(--dark-green);color:white;border:none;border-radius:5px;font-size:16px;cursor:pointer;}#error{color:red;margin-top:10px;display:none;}.dashboard-container{max-width:1400px;margin:0 auto;}.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;}.header-left{display:flex;align-items:center;}.header-left img{width:150px;margin-right:25px;}.header-left h1{color:var(--dark-green);}.card{background:var(--white);padding:20px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:20px;}.filters{display:flex;gap:20px;align-items:center;}.filters select{padding:10px;border-radius:5px;border:1px solid #ccc;font-size:16px;}.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:20px;}.kpi{text-align:center;}.kpi .value{font-size:2.5em;font-weight:700;color:var(--dark-green);}.kpi .label{font-size:1em;color:#666;}.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}.chart-container{width:100%;height:400px;}#activityLog{width:100%;border-collapse:collapse;margin-top:10px;}#activityLog th,#activityLog td{padding:12px;border:1px solid #ddd;text-align:left;}#activityLog th{background-color:var(--dark-green);color:white;}#activityLog tr:nth-child(even){background-color:#f9f9f9;}@media (max-width:900px){.chart-grid{grid-template-columns:1fr;}.header{flex-direction:column;align-items:flex-start;}}</style>
+    <style>:root{--dark-green:#546141;--light-gray:#E2DEDA;--white:#FFFFFF;}body{font-family:'Segoe UI',sans-serif;background-color:var(--light-gray);margin:0;padding:25px;}.hidden{display:none!important;}.login-wrapper{display:flex;justify-content:center;align-items:center;height:100vh;}.login-container{background:var(--white);padding:40px;border-radius:10px;box-shadow:0 4px 15px rgba(0,0,0,0.1);text-align:center;width:350px;}img{max-width:200px;margin-bottom:20px;}h2{color:var(--dark-green);margin-bottom:25px;}input{width:100%;padding:12px;margin-bottom:15px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box;}button{width:100%;padding:12px;background-color:var(--dark-green);color:white;border:none;border-radius:5px;font-size:16px;cursor:pointer;}#error{color:red;margin-top:10px;display:none;}.dashboard-container{max-width:1400px;margin:0 auto;}.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:25px;}.header-left{display:flex;align-items:center;}.header-left img{width:150px;margin-right:25px;}.header-left h1{color:var(--dark-green);}.logout-btn{padding:10px 20px;background-color:#757575;color:white;border:none;border-radius:5px;cursor:pointer;font-size:16px;text-decoration:none;}.card{background:var(--white);padding:20px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.08);margin-bottom:20px;}.filters{display:flex;gap:20px;align-items:center;}.filters select{padding:10px;border-radius:5px;border:1px solid #ccc;font-size:16px;}.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-bottom:20px;}.kpi{text-align:center;}.kpi .value{font-size:2.5em;font-weight:700;color:var(--dark-green);}.kpi .label{font-size:1em;color:#666;}.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}.chart-container{width:100%;height:400px;}#activityLog{width:100%;border-collapse:collapse;margin-top:10px;}#activityLog th,#activityLog td{padding:12px;border:1px solid #ddd;text-align:left;}#activityLog th{background-color:var(--dark-green);color:white;}#activityLog tr:nth-child(even){background-color:#f9f9f9;}@media (max-width:900px){.chart-grid{grid-template-columns:1fr;}.header{flex-direction:column;align-items:flex-start;}}</style>
 </head>
 <body>
 
     <!-- Login Screen -->
     <div id="login-screen" class="login-wrapper">
         <div class="login-container">
-            <img src="https://i.ibb.co/3sXzHkL/princes-coffee-logo.png" alt="Logo">
+            <img src="https://i.ibb.co/L95j5zt/logo-clean.png" alt="Logo">
             <h2>Dashboard Login</h2>
             <form onsubmit="event.preventDefault(); checkPassword();">
                 <input type="password" id="password" placeholder="Password" required>
@@ -26,9 +27,11 @@
     <div id="dashboard-screen" class="dashboard-container hidden">
         <div class="header">
             <div class="header-left">
-                <img src="https://i.ibb.co/3sXzHkL/princes-coffee-logo.png" alt="Logo">
+                <img src="https://i.ibb.co/L95j5zt/logo-clean.png" alt="Logo">
                 <h1>Performance Dashboard</h1>
             </div>
+             <!-- The logout button now calls a JS function -->
+            <button class="logout-btn" onclick="signOut()">Logout</button>
         </div>
         <div class="card filters"><select id="managerFilter"><option value="All">All Area Managers</option></select><select id="timeFilter"><option value="today">Today</option><option value="week">This Week</option><option value="month">This Month</option><option value="all">All Time</option></select></div>
         <div class="card kpi-grid"><div class="kpi"><div id="kpi-visits" class="value">0</div><div class="label">Total Visits</div></div><div class="kpi"><div id="kpi-hours" class="value">0.0</div><div class="label">Total Hours on Site</div></div><div class="kpi"><div id="kpi-avg-duration" class="value">0</div><div class="label">Avg. Duration (Mins)</div></div><div class="kpi"><div id="kpi-unique-branches" class="value">0</div><div class="label">Branches Visited</div></div></div>
@@ -38,23 +41,33 @@
 
     <script>
         // --- CONFIGURATION ---
-        // !!! PASTE YOUR API URL FROM STEP 2 HERE !!!
-        const API_URL = 'https://script.google.com/macros/s/AKfycbx9Pnz6ss_LlOAYeQkqWpS3OgRjnXL0kZWEOPFRZgg2fCJur5dDPzcVcv_YsB9WgJWo0Q/exec';
-        const SECRET_KEY = 'PrincesDashboard2025'; // Must match the key in your script
+        // !!! PASTE YOUR API URL HERE !!!
+        const API_URL = 'https://script.google.com/macros/s/AKfycbyMZCREmmKq3RkSxXE_F8bt7Jt7j3Rjgizf2uns011JvvLyUw-XADHYICz6YyFQOiYZDg/exec';
+        const SECRET_KEY = 'PrincesDashboard2025'; // Must match the key in your API script
         const DASHBOARD_PASSWORD = 'Princes2025!'; // The password managers will type
 
         let fullData = [];
+        
+        // STEP 2: The chart library is now loaded. This function is ready to be called.
+        google.charts.load('current', {'packages':['corechart']});
 
+        // This function handles the login logic
         function checkPassword() {
             const password = document.getElementById('password').value;
             if (password === DASHBOARD_PASSWORD) {
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('dashboard-screen').classList.remove('hidden');
-                google.charts.load('current', {'packages':['corechart']});
+                
+                // STEP 3: Now that the user is logged in, tell the chart library to fetch data.
                 google.charts.setOnLoadCallback(fetchData);
             } else {
                 document.getElementById('error').style.display = 'block';
             }
+        }
+        
+        function signOut() {
+            // A simple redirect is the most reliable way to log out.
+            window.top.location.href = window.top.location.href;
         }
 
         document.getElementById('managerFilter').addEventListener('change', filterAndDraw);
@@ -76,12 +89,11 @@
                 filterAndDraw();
             } catch (error) {
                 console.error('Failed to fetch dashboard data:', error);
-                alert(`Could not load dashboard data. Please check the API URL and secret key. \n\nError: ${error.message}`);
+                alert(`Could not load dashboard data. Please check the API URL configuration. \n\nError: ${error.message}`);
             } finally {
                 document.getElementById('dashboard-screen').style.opacity = '1';
             }
         }
-
         // --- The rest of the functions are for drawing the dashboard and do not need to be changed ---
         function populateManagerFilter() {const managers=[...new Set(fullData.map(item=>item.user))];const filter=document.getElementById('managerFilter');while(filter.options.length>1)filter.remove(1);managers.sort().forEach(manager=>{const option=document.createElement('option');option.value=manager;option.textContent=manager;filter.appendChild(option)})}
         function filterAndDraw() {const selectedManager=document.getElementById('managerFilter').value;const selectedTime=document.getElementById('timeFilter').value;const now=new Date;const todayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate());const firstDayOfWeek=new Date(now);firstDayOfWeek.setDate(now.getDate()-now.getDay());firstDayOfWeek.setHours(0,0,0,0);const firstDayOfMonth=new Date(now.getFullYear(),now.getMonth(),1);let filteredData=fullData;if(selectedTime==="today"){filteredData=filteredData.filter(d=>d.timestamp>=todayStart)}else if(selectedTime==="week"){filteredData=filteredData.filter(d=>d.timestamp>=firstDayOfWeek)}else if(selectedTime==="month"){filteredData=filteredData.filter(d=>d.timestamp>=firstDayOfMonth)}if(selectedManager!=="All"){filteredData=filteredData.filter(d=>d.user===selectedManager)}updateKPIs(filteredData);drawBranchChart(filteredData);drawManagerChart(filteredData);updateActivityLog(filteredData)}
